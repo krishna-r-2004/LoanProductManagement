@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Loan Product Details</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}"/>
+</head>
+<body>
+<h1>Bank Loan Management System</h1>
+    <h2>Loan Product Details</h2>
+    <p><strong>Product ID:</strong> <span th:text="${loanProduct.loanProductId}"></span></p>
+    <p><strong>Product Name:</strong> <span th:text="${loanProduct.productName}"></span></p>
+    <p><strong>Interest Rate:</strong> <span th:text="${loanProduct.interestRate}"></span></p>
+    <p><strong>Min Amount:</strong> <span th:text="${loanProduct.minAmount}"></span></p>
+    <p><strong>Max Amount:</strong> <span th:text="${loanProduct.maxAmount}"></span></p>
+    <p><strong>Tenure (Months):</strong> <span th:text="${loanProduct.tenure}"></span></p>
+    <a href="/loanProduct/viewAll">Back to List</a>
+</body>
+</html>
