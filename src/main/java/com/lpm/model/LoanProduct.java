@@ -2,6 +2,9 @@ package com.lpm.model;
 
 import jakarta.persistence.*;
 import java.math.BigDecimal;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.AllArgsConstructor;
 
 /**
  * Represents a specific loan product offered by the lending platform.
@@ -10,6 +13,9 @@ import java.math.BigDecimal;
  */
 @Entity
 @Table(name = "LoanProduct")
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class LoanProduct {
 
     /**
@@ -44,111 +50,4 @@ public class LoanProduct {
      * The standard loan tenure for this product, typically in months or years.
      */
     private int tenure;
-
-    /**
-     * Default constructor for the LoanProduct class.
-     * This is a no-argument constructor required by JPA.
-     */
-    public LoanProduct() {}
-
-    /**
-     * Constructs a new LoanProduct object with the specified details.
-     *
-     * @param productName   The name of the loan product.
-     * @param interestRate  The annual interest rate.
-     * @param minAmount     The minimum loan amount.
-     * @param maxAmount     The maximum loan amount.
-     * @param tenure        The loan tenure.
-     */
-    public LoanProduct(String productName, BigDecimal interestRate, BigDecimal minAmount, BigDecimal maxAmount, int tenure) {
-        this.productName = productName;
-        this.interestRate = interestRate;
-        this.minAmount = minAmount;
-        this.maxAmount = maxAmount;
-        this.tenure = tenure;
-    }
-
-    /**
-     * Gets the unique identifier of the loan product.
-     *
-     * @return The loan product ID.
-     */
-    public int getLoanProductId() { return loanProductId; }
-
-    /**
-     * Sets the unique identifier of the loan product.
-     *
-     * @param loanProductId The new loan product ID.
-     */
-    public void setLoanProductId(int loanProductId) { this.loanProductId = loanProductId; }
-
-    /**
-     * Gets the name of the loan product.
-     *
-     * @return The product name.
-     */
-    public String getProductName() { return productName; }
-
-    /**
-     * Sets the name of the loan product.
-     *
-     * @param productName The new product name.
-     */
-    public void setProductName(String productName) { this.productName = productName; }
-
-    /**
-     * Gets the annual interest rate of the loan product.
-     *
-     * @return The interest rate.
-     */
-    public BigDecimal getInterestRate() { return interestRate; }
-
-    /**
-     * Sets the annual interest rate of the loan product.
-     *
-     * @param interestRate The new interest rate.
-     */
-    public void setInterestRate(BigDecimal interestRate) { this.interestRate = interestRate; }
-
-    /**
-     * Gets the minimum loan amount for this product.
-     *
-     * @return The minimum loan amount.
-     */
-    public BigDecimal getMinAmount() { return minAmount; }
-
-    /**
-     * Sets the minimum loan amount for this product.
-     *
-     * @param minAmount The new minimum loan amount.
-     */
-    public void setMinAmount(BigDecimal minAmount) { this.minAmount = minAmount; }
-
-    /**
-     * Gets the maximum loan amount for this product.
-     *
-     * @return The maximum loan amount.
-     */
-    public BigDecimal getMaxAmount() { return maxAmount; }
-
-    /**
-     * Sets the maximum loan amount for this product.
-     *
-     * @param maxAmount The new maximum loan amount.
-     */
-    public void setMaxAmount(BigDecimal maxAmount) { this.maxAmount = maxAmount; }
-
-    /**
-     * Gets the standard loan tenure for this product.
-     *
-     * @return The loan tenure.
-     */
-    public int getTenure() { return tenure; }
-
-    /**
-     * Sets the standard loan tenure for this product.
-     *
-     * @param tenure The new loan tenure.
-     */
-    public void setTenure(int tenure) { this.tenure = tenure; }
 }
