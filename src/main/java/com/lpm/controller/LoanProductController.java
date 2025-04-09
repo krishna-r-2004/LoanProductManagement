@@ -47,7 +47,7 @@ public class LoanProductController {
         logger.info("Displaying update loan product form for ID: {}", id);
         LoanProduct loanProduct = loanProductService.getLoanProductDetails(id);
         if (loanProduct == null) {
-            logger.warn("Loan product not found for ID: {}", id);
+            logger.warn("Loan product not avaiable for given ID: {}", id);
             return new ModelAndView("redirect:/loanProduct/viewAll");
         }
         ModelAndView modelAndView = new ModelAndView("loanProducts");
@@ -83,13 +83,12 @@ public class LoanProductController {
         logger.info("Displaying loan product details for ID: {}", id);
         LoanProduct loanProduct = loanProductService.getLoanProductDetails(id);
         if (loanProduct == null) {
-//            logger.warn("Loan product not found for ID: {}", id);
+            logger.warn("Loan product not found for ID: {}", id);
             return new ModelAndView("redirect:/loanProduct/viewAll");
         }
         ModelAndView modelAndView = new ModelAndView("loanProducts");
         modelAndView.addObject("loanProduct", loanProduct);
         modelAndView.addObject("details", "true");
-        System.out.printf("asas");
         return modelAndView;
     }
 }
