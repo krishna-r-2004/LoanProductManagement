@@ -2,7 +2,6 @@ package com.lpm.controller;
 
 import com.lpm.model.LoanProduct;
 import com.lpm.service.LoanProductService;
-import com.lpm.exception.LoanProductNotFoundException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -20,6 +19,9 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.*;
 
+/**
+ * Unit tests for the LoanProductController class.
+ */
 class LoanProductControllerTest {
 
     @Mock
@@ -33,6 +35,9 @@ class LoanProductControllerTest {
 
     private LoanProduct loanProduct;
 
+    /**
+     * Sets up the test environment before each test.
+     */
     @BeforeEach
     public void setUp() {
         MockitoAnnotations.openMocks(this);
@@ -45,6 +50,9 @@ class LoanProductControllerTest {
         loanProduct.setTenure(12);
     }
 
+    /**
+     * Tests the showAddLoanProductForm method.
+     */
     @Test
     public void showAddLoanProductForm() {
         ModelAndView modelAndView = loanProductController.showAddLoanProductForm();
@@ -54,6 +62,9 @@ class LoanProductControllerTest {
         assertTrue(modelAndView.getModel().containsKey("add"));
     }
 
+    /**
+     * Tests the addLoanProduct method.
+     */
     @Test
     public void addLoanProduct() {
         doNothing().when(loanProductService).addLoanProduct(any(LoanProduct.class));
@@ -62,6 +73,9 @@ class LoanProductControllerTest {
         verify(redirectAttributes).addFlashAttribute("message", "Loan product added successfully!");
     }
 
+    /**
+     * Tests the showUpdateLoanProductForm method.
+     */
     @Test
     public void showUpdateLoanProductForm() {
         when(loanProductService.getLoanProductDetails(anyInt())).thenReturn(loanProduct);
@@ -72,6 +86,9 @@ class LoanProductControllerTest {
         assertTrue(modelAndView.getModel().containsKey("update"));
     }
 
+    /**
+     * Tests the updateLoanProduct method.
+     */
     @Test
     public void updateLoanProduct() {
         doNothing().when(loanProductService).updateLoanProduct(any(LoanProduct.class));
@@ -80,6 +97,9 @@ class LoanProductControllerTest {
         verify(redirectAttributes).addFlashAttribute("message", "Loan product updated successfully!");
     }
 
+    /**
+     * Tests the viewAllLoanProducts method.
+     */
     @Test
     public void viewAllLoanProducts() {
         List<LoanProduct> loanProducts = Arrays.asList(loanProduct);
@@ -90,6 +110,9 @@ class LoanProductControllerTest {
         assertTrue(modelAndView.getModel().containsKey("loanProducts"));
     }
 
+    /**
+     * Tests the getLoanProductDetails method.
+     */
     @Test
     public void getLoanProductDetails() {
         when(loanProductService.getLoanProductDetails(anyInt())).thenReturn(loanProduct);
@@ -100,6 +123,9 @@ class LoanProductControllerTest {
         assertTrue(modelAndView.getModel().containsKey("details"));
     }
 
+    /**
+     * Tests that loan product parameters are not null.
+     */
     @Test
     public void testLoanProductParametersNotNull() {
         assertNotNull(loanProduct.getLoanProductId(), "Loan Product ID should not be null");
@@ -109,6 +135,9 @@ class LoanProductControllerTest {
         assertNotNull(loanProduct.getTenure(), "Tenure should not be null");
     }
 
+    /**
+     * Tests that the loan product name is not empty.
+     */
     @Test
     public void testLoanProductNameNotEmpty() {
         assertFalse(loanProduct.getProductName().isEmpty(), "Product Name should not be empty");

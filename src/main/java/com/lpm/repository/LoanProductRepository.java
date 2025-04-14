@@ -12,8 +12,9 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface LoanProductRepository extends JpaRepository<LoanProduct, Integer> {
-    // If you need custom queries or operations specific to LoanProduct, you can define them here.
-    // For example:
-    // List<LoanProduct> findByProductName(String productName);
-    // List<LoanProduct> findByInterestRateLessThan(BigDecimal rate);
+
 }
+// If you need custom queries or operations specific to LoanProduct, you can define them here.
+// For example:
+// List<LoanProduct> findByProductName(String productName);
+// List<LoanProduct> findByInterestRateLessThan(BigDecimal rate);

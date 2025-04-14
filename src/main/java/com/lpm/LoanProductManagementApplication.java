@@ -7,7 +7,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * This class is responsible for bootstrapping the Spring Boot application.
  */
 @SpringBootApplication
-
 public class LoanProductManagementApplication {
 	/**
 	 * The main method which serves as the entry point for the Spring Boot application.
