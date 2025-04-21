@@ -1,5 +1,6 @@
 package com.lpm.controller;
 
+import com.lpm.exception.LoanProductNotFoundException;
 import com.lpm.model.LoanProduct;
 import com.lpm.service.LoanProductService;
 import org.junit.jupiter.api.BeforeEach;
@@ -74,16 +75,17 @@ class LoanProductControllerTest {
     }
 
     /**
-     * Tests the showUpdateLoanProductForm method.
+     * Tests the showUpdateLoanProductForm method when the loan product is found.
      */
     @Test
-    public void showUpdateLoanProductForm() {
-        when(loanProductService.getLoanProductDetails(anyInt())).thenReturn(loanProduct);
+    public void showUpdateLoanProductForm_ProductFound() throws LoanProductNotFoundException {
+        when(loanProductService.getLoanProductDetails(1)).thenReturn(loanProduct);
         ModelAndView modelAndView = loanProductController.showUpdateLoanProductForm(1);
         assertNotNull(modelAndView);
         assertEquals("loanProducts", modelAndView.getViewName());
         assertTrue(modelAndView.getModel().containsKey("loanProduct"));
         assertTrue(modelAndView.getModel().containsKey("update"));
+        assertEquals(loanProduct, modelAndView.getModel().get("loanProduct"));
     }
 
     /**
@@ -108,19 +110,21 @@ class LoanProductControllerTest {
         assertNotNull(modelAndView);
         assertEquals("loanProducts", modelAndView.getViewName());
         assertTrue(modelAndView.getModel().containsKey("loanProducts"));
+        assertEquals(loanProducts, modelAndView.getModel().get("loanProducts"));
     }
 
     /**
-     * Tests the getLoanProductDetails method.
+     * Tests the getLoanProductDetails method when the loan product is found.
      */
     @Test
-    public void getLoanProductDetails() {
-        when(loanProductService.getLoanProductDetails(anyInt())).thenReturn(loanProduct);
+    public void getLoanProductDetails_ProductFound() throws LoanProductNotFoundException {
+        when(loanProductService.getLoanProductDetails(1)).thenReturn(loanProduct);
         ModelAndView modelAndView = loanProductController.getLoanProductDetails(1);
         assertNotNull(modelAndView);
         assertEquals("loanProducts", modelAndView.getViewName());
         assertTrue(modelAndView.getModel().containsKey("loanProduct"));
         assertTrue(modelAndView.getModel().containsKey("details"));
+        assertEquals(loanProduct, modelAndView.getModel().get("loanProduct"));
     }
 
     /**

@@ -1,8 +1,10 @@
 package com.lpm.controller;
 
+import com.lpm.exception.LoanProductNotFoundException;
 import com.lpm.model.LoanProduct;
 import com.lpm.service.LoanProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -67,17 +69,18 @@ public class LoanProductController {
      * @param id The ID of the loan product to be updated.
      * @return A {@link ModelAndView} object for the "loanProducts" view,
      * with the retrieved {@link LoanProduct} object and an "update" flag set to true.
-     * If the loan product is not found, it redirects to the "/loanProduct/viewAll" URL.
+     * @throws LoanProductNotFoundException If the loan product with the given ID is not found.
      */
     @GetMapping("/update/{id}")
-    public ModelAndView showUpdateLoanProductForm(@PathVariable int id) {
+    public ModelAndView showUpdateLoanProductForm(@PathVariable int id) throws LoanProductNotFoundException {
         LoanProduct loanProduct = loanProductService.getLoanProductDetails(id);
-        if (loanProduct == null) {
-            return new ModelAndView("redirect:/loanProduct/viewAll");
-        }
         ModelAndView modelAndView = new ModelAndView("loanProducts");
-        modelAndView.addObject("loanProduct", loanProduct);
-        modelAndView.addObject("update", "true");
+        if (modelAndView.isEmpty()) {
+            throw new LoanProductNotFoundException("Loan Product Not Found!");
+        } else {
+            modelAndView.addObject("loanProduct", loanProduct);
+            modelAndView.addObject("update", "true");
+        }
         return modelAndView;
     }
 
@@ -123,17 +126,30 @@ public class LoanProductController {
      * @param id The ID of the loan product to display.
      * @return A {@link ModelAndView} object for the "loanProducts" view,
      * with the retrieved {@link LoanProduct} object and a "details" flag set to true.
-     * If the loan product is not found, it redirects to the "/loanProduct/viewAll" URL.
+     * @throws LoanProductNotFoundException If the loan product with the given ID is not found.
      */
     @GetMapping("/details/{id}")
-    public ModelAndView getLoanProductDetails(@PathVariable int id) {
+    public ModelAndView getLoanProductDetails(@PathVariable int id) throws LoanProductNotFoundException {
         LoanProduct loanProduct = loanProductService.getLoanProductDetails(id);
-        if (loanProduct == null) {
-            return new ModelAndView("redirect:/loanProduct/viewAll");
-        }
         ModelAndView modelAndView = new ModelAndView("loanProducts");
         modelAndView.addObject("loanProduct", loanProduct);
         modelAndView.addObject("details", "true");
+        return modelAndView;
+    }
+
+    /**
+     * Handles {@link LoanProductNotFoundException}.
+     * Returns a ModelAndView with an error message and sets the HTTP status to NOT_FOUND.
+     *
+     * @param ex The {@link LoanProductNotFoundException} that was thrown.
+     * @return A {@link ModelAndView} object displaying an error message.
+     */
+    @ExceptionHandler(LoanProductNotFoundException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public ModelAndView handleLoanProductNotFoundException(LoanProductNotFoundException ex) {
+        ModelAndView modelAndView = new ModelAndView("error");
+        modelAndView.addObject("errorMessage", ex.getMessage());
+        modelAndView.addObject("errorCode", HttpStatus.NOT_FOUND.value());
         return modelAndView;
     }
 }
